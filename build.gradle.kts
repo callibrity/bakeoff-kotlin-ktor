@@ -6,6 +6,7 @@ val logbackVersion: String by project
 val prometheusVersion: String by project
 val exposedVersion: String by project
 val h2Version: String by project
+val pgsqlVersion: String by project
 
 plugins {
     application
@@ -40,6 +41,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("com.h2database:h2:$h2Version")
+    implementation("org.postgresql:postgresql:$pgsqlVersion")
+    implementation("com.zaxxer:HikariCP:5.0.1")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
@@ -49,23 +52,3 @@ ktor {
         localImageName.set("bakeoff-kotlin-ktor")
     }
 }
-
-//task("buildDocker") {
-//    dependsOn("buildImage")
-//    doLast {
-//        val outStream = ByteArrayOutputStream()
-//        exec {
-////            executable = "which"
-////            args = listOf("docker")
-//            commandLine = listOf("which", "docker")
-//            standardOutput = outStream
-//        }
-//        println(outStream.toString())
-//
-////        exec {
-////            executable = "docker"
-////            args = listOf("load", "--input", "${project.buildDir}/jib-image.tar")
-////            standardOutput = outStream
-////        }
-//    }
-//}

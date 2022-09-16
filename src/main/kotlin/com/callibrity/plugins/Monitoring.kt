@@ -12,8 +12,6 @@ import io.ktor.server.routing.*
 fun Application.configureMonitoring() {
     val appMicrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
 
-    install(CallLogging)
-
     install(MicrometerMetrics) {
         registry = appMicrometerRegistry
     }
