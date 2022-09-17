@@ -67,7 +67,7 @@ graalvmNative {
             buildArgs.add("-H:+ReportUnsupportedElementsAtRuntime")
             buildArgs.add("-H:+ReportExceptionStackTraces")
 
-            imageName.set("bakeoff-kotlin-ktor:${project.version}-native")
+            imageName.set("callibrity/bakeoff-kotlin-ktor:${project.version}-native")
         }
     }
 }
