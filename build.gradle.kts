@@ -49,6 +49,7 @@ dependencies {
 
 ktor {
     docker {
-        localImageName.set("bakeoff-kotlin-ktor")
+        localImageName.set("callibrity/bakeoff-kotlin-ktor")
+        imageTag.set("${project.version}")
     }
 }
