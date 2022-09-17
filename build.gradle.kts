@@ -13,7 +13,6 @@ plugins {
     kotlin("jvm") version "1.7.10"
     id("io.ktor.plugin") version "2.1.1"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.7.10"
-    id("org.graalvm.buildtools.native") version "0.9.13"
 }
 
 group = "com.callibrity"
@@ -36,7 +35,7 @@ dependencies {
     implementation("io.ktor:ktor-server-call-logging:$ktorVersion")
     implementation("io.ktor:ktor-server-metrics-micrometer-jvm:$ktorVersion")
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
-    implementation("io.ktor:ktor-server-cio-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
@@ -51,24 +50,6 @@ dependencies {
 ktor {
     docker {
         localImageName.set("callibrity/bakeoff-kotlin-ktor")
-        imageTag.set("${project.version}-jvm")
+        imageTag.set("${project.version}")
     }
 }
-
-graalvmNative {
-    binaries {
-        named("main") {
-            fallback.set(false)
-            verbose.set(true)
-
-            buildArgs.add("--initialize-at-build-time=io.ktor,kotlin")
-
-            buildArgs.add("-H:+InstallExitHandlers")
-            buildArgs.add("-H:+ReportUnsupportedElementsAtRuntime")
-            buildArgs.add("-H:+ReportExceptionStackTraces")
-
-            imageName.set("callibrity/bakeoff-kotlin-ktor:${project.version}-native")
-        }
-    }
-}
-
